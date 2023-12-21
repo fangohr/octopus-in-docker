@@ -58,6 +58,20 @@ RUN cat octopus-configlog-warnings
 # all in one line to make image smaller
 RUN make && make install && make clean && make distclean
 
+RUN echo "DEBUG starts here XXXX ----------------"
+RUN echo "`octopus` cannot find libsym:"
+RUN ldd /usr/local/bin/octopus
+RUN ldd /usr/local/bin/octopus | grep libsym
+
+RUN echo "The problem is solved by setting LD_LIBRARY_PATH - but that's probably not intended?"
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
+RUN echo $LD_LIBRARY_PATH
+
+RUN ldd /usr/local/bin/octopus
+RUN ldd /usr/local/bin/octopus | grep libsym
+
+RUN echo "DEBUG ends here XXXX ----------------"
 RUN octopus --version > octopus-version
 RUN octopus --version
 
