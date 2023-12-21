@@ -1,5 +1,5 @@
 stable:
-	docker build -f Dockerfile -t octopus .
+	docker build --progress plain -f Dockerfile -t octopus .
 
 develop:
 	docker build -f Dockerfile-develop -t octopus-develop .
