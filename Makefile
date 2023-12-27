@@ -2,7 +2,7 @@ stable:
 	docker build -f Dockerfile -t octopus .
 
 develop:
-	docker build -f Dockerfile-develop -t octopus-develop .
+	docker build --progress plain -f Dockerfile-develop -t octopus-develop .
 
 .PHONY: stable develop dockerhub-update-13.0
 

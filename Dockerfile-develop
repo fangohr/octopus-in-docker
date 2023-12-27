@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 # install Octopus develop version 
 
@@ -9,7 +9,6 @@ RUN apt-get -y update && apt-get -y install wget time nano vim emacs \
     autoconf \
     automake \
     build-essential \
-    fftw3-dev \
     g++ \
     gcc \
     gfortran \
@@ -61,6 +60,18 @@ RUN cat octopus-configlog-warnings
 
 # all in one line to make image smaller
 RUN make && make install && make clean && make distclean
+
+RUN echo "Section Issue 9 starts here. --------------"
+RUN echo "Issue 9: https://github.com/fangohr/octopus-in-docker/issues/9"
+# DEBUG output
+RUN ldd /usr/local/bin/octopus | grep libsym
+RUN echo $LD_LIBRARY_PATH
+# Setting LD_LIBRARY_PATH as follows works around the octopus bug described in
+# https://github.com/fangohr/octopus-in-docker/issues/9 and also referenced in
+# https://gitlab.com/octopus-code/octopus/-/issues/886
+ENV LD_LIBRARY_PATH=/usr/local/lib
+RUN echo $LD_LIBRARY_PATH
+RUN echo "Section Issue 9 ends here. ----------------"
 
 RUN octopus --version > octopus-version
 RUN octopus --version

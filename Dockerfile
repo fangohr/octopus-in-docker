@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 # install Octopus 13.0 on Debian
 
@@ -9,7 +9,6 @@ RUN apt-get -y update && apt-get -y install wget time nano vim emacs \
     autoconf \
     automake \
     build-essential \
-    fftw3-dev \
     g++ \
     gcc \
     gfortran \

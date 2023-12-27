@@ -13,9 +13,9 @@ Use cases: run octopus (for small calculations) conveniently in container, in pa
 Status 
 ------
 
-|stable| Debian Bullseye (11), Last octopus release (13.0)
+|stable| Debian Bookworm (12), Last octopus release (13.0)
 
-|develop| Debian Bullseye (11), Octopus develop branch
+|develop| Debian Bookworm (12), Octopus develop branch
 
 
 Introduction
