@@ -95,6 +95,9 @@ RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "cgal"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "scalapack"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "ELPA"
 
+# make optional libraries information available as part of container
+RUN grep "Optional libraries" /tmp/octopus-recipe.out > octopus-optional-libraries
+
 # offer directory for mounting container
 WORKDIR /io
 
