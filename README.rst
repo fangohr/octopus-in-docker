@@ -44,7 +44,8 @@ Quick start
 
    This is tested and known to work on OSX and Windows. On Linux, there is a
    permissions issue if (numerical) user id on the host system and in the
-   container deviate.
+   container deviate. Moreover, in Linux, the files generated would be owned by root,
+   and thus could cause issues with further file manipulation (such as deleting files).
 
    To check which Octopus version you have in the container, you can use::
  
