@@ -1,0 +1,23 @@
+name: stable with tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  schedule:
+    # run once per month
+    - cron: "0 0 1 * *"
+
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Octopus release on Debian in Docker
+      run: make stable CHECK_LEVEL=1
+
