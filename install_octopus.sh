@@ -1,7 +1,14 @@
 #!/bin/bash
 # This script prepares the download of octopus in the right location given the version number, location to untar / clone and install prefix
+# the final argument is the level of checks to be run
+# 0: no checks
+# 1: check-short
+# 2: check-long
+# 3: check-short and check-long
+
 # example run:
 # $ ./install_octopus.sh 13.0 /opt/octopus /home/user/octopus-bin
+# $ ./install_octopus.sh 13.0 /opt/octopus /home/user/octopus-bin 3
 # $ ./install_octopus.sh develop /opt/octopus
 # Consider runing install_dependencies.sh first to install all the dependencies on a debian based system
 
@@ -29,6 +36,13 @@ if [ -z "$3" ]
     prefix=/usr/local
 else
     prefix=$3
+fi
+if [ -z "$4" ]
+  then
+    echo "Checks not requsted, skipping make check"
+    check_level=0
+else
+    check_level=$4
 fi
 
 # make the location if it does not exist
@@ -96,3 +110,8 @@ if [ $version == "develop" ]; then
   echo "Section Issue 9 ends here. ----------------"
 fi
 
+# Run the tests
+# Run the tests if requested
+if [ "$CHECK_LEVEL" -eq 1 ]; then make check-short; fi
+if [ "$CHECK_LEVEL" -eq 2 ]; then make check-long; fi
+if [ "$CHECK_LEVEL" -eq 3 ]; then make check; fi

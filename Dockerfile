@@ -17,8 +17,8 @@ ARG CHECK_LEVEL=0
 WORKDIR /opt
 COPY *.sh /opt
 RUN bash /opt/install_dependencies.sh
-#   bash /opt/install_octopus.sh $VERSION_OCTOPUS $OCTOPUS_SOURCE_DIR $OCTOPUS_INSTALL_DIR
-RUN bash /opt/install_octopus.sh $VERSION_OCTOPUS /opt/octopus
+#   bash /opt/install_octopus.sh $VERSION_OCTOPUS $OCTOPUS_SOURCE_DIR $OCTOPUS_INSTALL_DIR $CHECK_LEVEL
+RUN bash /opt/install_octopus.sh $VERSION_OCTOPUS /opt/octopus /usr/local ${CHECK_LEVEL}
 
 # on octopus>13 libsym (external-lib) is dynamically linked and hence needs LD_LIBRARY_PATH set
 # see https://github.com/fangohr/octopus-in-docker/issues/9
@@ -61,10 +61,6 @@ RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "cgal"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "scalapack"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "ELPA"
 
-# Run the tests if requested
-RUN if [ "$CHECK_LEVEL" -eq 1 ]; then make check-short; fi
-RUN if [ "$CHECK_LEVEL" -eq 2 ]; then make check-long; fi
-RUN if [ "$CHECK_LEVEL" -eq 3 ]; then make check; fi
 
 
 # offer directory for mounting container
