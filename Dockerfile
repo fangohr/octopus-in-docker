@@ -5,7 +5,13 @@ FROM debian:bookworm
 # the version to install (latest stable or develop) is set by buildarg VERSION_OCTOPUS
 ARG VERSION_OCTOPUS=develop
 
-
+# One can run the tests in the container after compiling the code
+# by setting the CHECK_LEVEL variable
+# 0: no checks
+# 1: check-short
+# 2: check-long
+# 3: check-short and check-long
+ARG CHECK_LEVEL=0
 
 # Install octopus dependencies and compile octopus.
 WORKDIR /opt
@@ -54,6 +60,12 @@ RUN grep "Configuration options" /tmp/octopus-recipe.out | grep "mpi"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "cgal"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "scalapack"
 RUN grep "Optional libraries" /tmp/octopus-recipe.out | grep "ELPA"
+
+# Run the tests if requested
+RUN if [ "$CHECK_LEVEL" -eq 1 ]; then make check-short; fi
+RUN if [ "$CHECK_LEVEL" -eq 2 ]; then make check-long; fi
+RUN if [ "$CHECK_LEVEL" -eq 3 ]; then make check; fi
+
 
 # offer directory for mounting container
 WORKDIR /io
