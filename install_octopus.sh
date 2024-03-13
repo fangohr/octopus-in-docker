@@ -91,7 +91,7 @@ cat config.log | grep WARN > octopus-configlog-warnings
 cat octopus-configlog-warnings
 
 # all in one line to make image smaller
-make -j && make install && make clean && make distclean
+make -j && make install
 
 
 
@@ -110,8 +110,24 @@ if [ $version == "develop" ]; then
   echo "Section Issue 9 ends here. ----------------"
 fi
 
-# Run the tests
 # Run the tests if requested
-if [ "$CHECK_LEVEL" -eq 1 ]; then make check-short; fi
-if [ "$CHECK_LEVEL" -eq 2 ]; then make check-long; fi
-if [ "$CHECK_LEVEL" -eq 3 ]; then make check; fi
+# setup the currect number of cpus and threads to be used
+# octopus by default uses 2 tasks per test
+# we can set each task  to use 2 thread
+# then the number of tests to run in parallel is number of cpus / (2*2)
+if [ "$check_level" -gt 0 ]
+then
+  NUM_CPUS=$(nproc)
+  export OMP_NUM_THREADS=2
+  export OCT_TEST_NJOBS=$((NUM_CPUS/4))
+  # Allow mpi to run as root
+  export OMPI_ALLOW_RUN_AS_ROOT=1
+  export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+
+  if [ "$check_level" -eq 1 ]; then make check-short; fi
+  if [ "$check_level" -eq 2 ]; then make check-long; fi
+  if [ "$check_level" -eq 3 ]; then make check; fi
+fi
+
+# Clean up
+make clean && make distclean
