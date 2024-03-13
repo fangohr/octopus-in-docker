@@ -112,14 +112,14 @@ fi
 
 # Run the tests if requested
 # setup the currect number of cpus and threads to be used.
-# octopus by default uses 2 tasks per test
-# we can set each task  to use 2 thread
-# then the number of tests to run in parallel is number of cpus / (2*2)
+# octopus by default uses 2 mpi tasks per test
+# we can set each task  to use 1 thread
+# then the number of tests to run in parallel is number of cpus / (2*1)
 if [ "$check_level" -gt 0 ]
 then
   NUM_CPUS=$(nproc)
-  export OMP_NUM_THREADS=2
-  export OCT_TEST_NJOBS=$((NUM_CPUS/4))
+  export OMP_NUM_THREADS=1
+  export OCT_TEST_NJOBS=$((NUM_CPUS/2))
   # Allow mpi to run as root
   export OMPI_ALLOW_RUN_AS_ROOT=1
   export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
