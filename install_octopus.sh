@@ -39,7 +39,7 @@ else
 fi
 if [ -z "$4" ]
   then
-    echo "Checks not requsted, skipping make check"
+    echo "Tests not requsted, skipping make check"
     check_level=0
 else
     check_level=$4
@@ -111,7 +111,7 @@ if [ $version == "develop" ]; then
 fi
 
 # Run the tests if requested
-# setup the currect number of cpus and threads to be used
+# setup the currect number of cpus and threads to be used.
 # octopus by default uses 2 tasks per test
 # we can set each task  to use 2 thread
 # then the number of tests to run in parallel is number of cpus / (2*2)
