@@ -1,7 +1,14 @@
 #!/bin/bash
 # This script prepares the download of octopus in the right location given the version number, location to untar / clone and install prefix
+# the final argument is the level of checks to be run
+# 0: no checks
+# 1: check-short
+# 2: check-long
+# 3: check-short and check-long
+
 # example run:
 # $ ./install_octopus.sh 13.0 /opt/octopus /home/user/octopus-bin
+# $ ./install_octopus.sh 13.0 /opt/octopus /home/user/octopus-bin 3
 # $ ./install_octopus.sh develop /opt/octopus
 # Consider runing install_dependencies.sh first to install all the dependencies on a debian based system
 
@@ -29,6 +36,13 @@ if [ -z "$3" ]
     prefix=/usr/local
 else
     prefix=$3
+fi
+if [ -z "$4" ]
+  then
+    echo "Tests not requsted, skipping make check"
+    check_level=0
+else
+    check_level=$4
 fi
 
 # make the location if it does not exist
@@ -77,7 +91,7 @@ cat config.log | grep WARN > octopus-configlog-warnings
 cat octopus-configlog-warnings
 
 # all in one line to make image smaller
-make -j && make install && make clean && make distclean
+make -j && make install
 
 
 
@@ -96,3 +110,22 @@ if [ $version == "develop" ]; then
   echo "Section Issue 9 ends here. ----------------"
 fi
 
+# Run the tests if requested
+# setup the currect number of cpus and threads to be used.
+# octopus by default uses 2 mpi tasks per test
+# we can set each task  to use 1 thread
+# then the number of tests to run in parallel is number of cpus / (2*1)
+if [ "$check_level" -gt 0 ]
+then
+  NUM_CPUS=$(nproc)
+  if [ -z "$OMP_NUM_THREADS" ]; then export OMP_NUM_THREADS=1; fi
+  if [ -z "$OCT_TEST_NJOBS" ]; then export OCT_TEST_NJOBS=$((NUM_CPUS/2)); fi
+  if [ -z "$MPIEXEC" ]; then export MPIEXEC="mpiexec --oversubscribe"; fi
+
+  if [ "$check_level" -eq 1 ]; then make check-short; fi
+  if [ "$check_level" -eq 2 ]; then make check-long; fi
+  if [ "$check_level" -eq 3 ]; then make check; fi
+fi
+
+# Clean up
+make clean && make distclean

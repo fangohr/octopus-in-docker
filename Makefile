@@ -1,14 +1,29 @@
-# This Makefile is used to build the Docker image for Octopus.
+# A Makefile to build the octopus container in debian.
+
 # EXAMPLE: make stable
 # EXAMPLE: make develop
 # EXAMPLE: make stable VERSION_OCTOPUS=12.0
 VERSION_OCTOPUS?=14.0
 
+
+# One can run the tests in the container after compiling the code
+# by setting the CHECK_LEVEL variable
+# 0: no checks
+# 1: check-short
+# 2: check-long
+# 3: check-short and check-long
+
+# Example:
+# make stable CHECK_LEVEL=3
+# make develop CHECK_LEVEL=0
+
+CHECK_LEVEL ?= 0
+
 stable:
-	docker build -f Dockerfile --build-arg VERSION_OCTOPUS=${VERSION_OCTOPUS} -t octopus .
+	docker build -f Dockerfile --build-arg VERSION_OCTOPUS=${VERSION_OCTOPUS} --build-arg CHECK_LEVEL=${CHECK_LEVEL} -t octopus .
 
 develop:
-	docker build -f Dockerfile --build-arg VERSION_OCTOPUS=develop -t octopus-develop .
+	docker build -f Dockerfile --build-arg VERSION_OCTOPUS=develop --build-arg CHECK_LEVEL=${CHECK_LEVEL} -t octopus-develop .
 
 .PHONY: stable develop dockerhub-update-multiarch
 
