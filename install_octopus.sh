@@ -118,9 +118,9 @@ fi
 if [ "$check_level" -gt 0 ]
 then
   NUM_CPUS=$(nproc)
-  export OMP_NUM_THREADS=1
-  export OCT_TEST_NJOBS=$((NUM_CPUS/2))
-  export MPIEXEC="mpiexec --oversubscribe"
+  if [ -z "$OMP_NUM_THREADS" ]; then export OMP_NUM_THREADS=1; fi
+  if [ -z "$OCT_TEST_NJOBS" ]; then export OCT_TEST_NJOBS=$((NUM_CPUS/2)); fi
+  if [ -z "$MPIEXEC" ]; then export MPIEXEC="mpiexec --oversubscribe"; fi
 
   if [ "$check_level" -eq 1 ]; then make check-short; fi
   if [ "$check_level" -eq 2 ]; then make check-long; fi
