@@ -119,7 +119,7 @@ if [ "$check_level" -gt 0 ]
 then
   NUM_CPUS=$(nproc)
   export OMP_NUM_THREADS=1
-  export OCT_TEST_NJOBS=$((NUM_CPUS/2))
+  export OCT_TEST_NJOBS= 1 # $((NUM_CPUS/2))
 
   if [ "$check_level" -eq 1 ]; then make check-short; fi
   if [ "$check_level" -eq 2 ]; then make check-long; fi
