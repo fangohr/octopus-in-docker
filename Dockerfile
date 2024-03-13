@@ -13,6 +13,15 @@ ARG VERSION_OCTOPUS=develop
 # 3: check-short and check-long
 ARG CHECK_LEVEL=0
 
+## Set the environment variables
+# allow root execution of mpirun
+ENV OMPI_ALLOW_RUN_AS_ROOT=1
+ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+
+# set number of OpenMP threads to 1 by default
+ENV OMP_NUM_THREADS=1
+
+
 # Install octopus dependencies and compile octopus.
 WORKDIR /opt
 COPY *.sh /opt
@@ -39,13 +48,6 @@ COPY examples /opt/octopus-examples
 RUN cd /opt/octopus-examples/recipe && octopus
 RUN cd /opt/octopus-examples/h-atom && octopus
 RUN cd /opt/octopus-examples/he && octopus
-
-# allow root execution of mpirun
-ENV OMPI_ALLOW_RUN_AS_ROOT=1
-ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-
-# set number of OpenMP threads to 1 by default
-ENV OMP_NUM_THREADS=1
 
 # run one MPI-enabled version
 RUN cd /opt/octopus-examples/he && mpirun -np 1 octopus

@@ -120,9 +120,6 @@ then
   NUM_CPUS=$(nproc)
   export OMP_NUM_THREADS=1
   export OCT_TEST_NJOBS=$((NUM_CPUS/2))
-  # Allow mpi to run as root
-  export OMPI_ALLOW_RUN_AS_ROOT=1
-  export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
 
   if [ "$check_level" -eq 1 ]; then make check-short; fi
   if [ "$check_level" -eq 2 ]; then make check-long; fi
