@@ -115,7 +115,7 @@ fi
 if [ $build_system == "cmake" ]; then
 
   # Patch spglib packaging issues
-  echo "Requires: spglib" >> /usr/lib/x86_64-linux-gnu/pkgconfig/spglib_f08.pc
+  # echo "Requires: spglib" >> /usr/lib/x86_64-linux-gnu/pkgconfig/spglib_f08.pc
 
   # Remove libxc CMake files because they are not packaged correctly
   rm -rf /usr/share/cmake/Libxc/
