@@ -3,7 +3,8 @@ FROM debian:bookworm
 # install Octopus (latest stable or develop) on Debian
 
 # the version to install (latest stable or develop) is set by buildarg VERSION_OCTOPUS
-ARG VERSION_OCTOPUS=develop
+# the development version of octopus is hosted on the branch "main" in the official repository.
+ARG VERSION_OCTOPUS=main
 
 # the build system to use (autotools or cmake)
 ARG BUILD_SYSTEM=autotools
