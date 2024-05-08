@@ -127,13 +127,13 @@ inside a Docker container.
 
 To do this, first clone this repository. Then run::
 
-  docker build -f Dockerfile --build-arg VERSION_OCTOPUS=14.0 -t octimage
+  docker build -f Dockerfile --build-arg VERSION_OCTOPUS=14.1 -t octimage
 
-to build Octopus version ``14.0`` in the container and create the Docker image with name ``octimage``.
+to build Octopus version ``14.1`` in the container and create the Docker image with name ``octimage``.
 
 To use the current development version of Octopus (from the `gitlab repository
 <https://gitlab.com/octopus-code/octopus>`__), use ``VERSION_OCTOPUS=develop``
-instead of ``VERSION_OCTOPUS=14.0``. Omitting the ``VERSION_OCTOPUS`` argument
+instead of ``VERSION_OCTOPUS=14.1``. Omitting the ``VERSION_OCTOPUS`` argument
 will by default pick the ``develop`` version.
 
 This will take some time to complete. (On Linux, you may need to prefix all
@@ -167,7 +167,7 @@ or use ``uname -m`` inside the container.)
 
 CMAKE or autotools as the configuration and build system
 --------------------------------------------------------
-Octopus from 14.0 onwards supports CMake as a build system. The Dockerfile uses the build arg ``BUILD_SYSTEM`` to specify the build system.
+Octopus from 14.1 onwards supports CMake as a build system. The Dockerfile uses the build arg ``BUILD_SYSTEM`` to specify the build system.
 The default value is ``autotools``. If you want to use CMake as the build system, then pass ``--build-arg BUILD_SYSTEM=cmake`` to the ``docker build`` command.
 Alternatively, you can set the environment variable ``BUILD_SYSTEM`` to ``cmake``. For eg:
 ```
@@ -179,7 +179,7 @@ Status
 
 Status of building the Docker images:
 
-|stable| Debian Bookworm (12), Latest Octopus release (14.0)
+|stable| Debian Bookworm (12), Latest Octopus release (14.1) using autotools
 
-|develop| Debian Bookworm (12), Octopus develop branch
+|develop| Debian Bookworm (12), Octopus develop branch using autotools
 

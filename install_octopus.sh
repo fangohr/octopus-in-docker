@@ -156,7 +156,7 @@ elif [ $build_system == "autotools" ]; then
   # see https://gitlab.com/octopus-code/octopus/-/issues/900
   export FCFLAGS_ELPA="-I/usr/include -I/usr/include/elpa/modules"
   # configure
-  ../configure --enable-mpi --enable-openmp --with-blacs="-lscalapack-openmpi" --prefix="$prefix"
+  ../configure --enable-mpi --enable-openmp --with-blacs="-lscalapack-openmpi" --prefix="$prefix"  --enable-silent-deprecation
 
   # Which optional dependencies are missing?
   cat config.log | grep WARN > octopus-configlog-warnings
