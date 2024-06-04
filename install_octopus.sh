@@ -130,7 +130,7 @@ if [ $build_system == "cmake" ]; then
   rm -rf /usr/share/cmake/Libxc/
 
   # configure
-  cmake --preset default -DOCTOPUS_OpenMP=ON -DOCTOPUS_MPI=ON -DOCTOPUS_ScaLAPACK=ON -G Ninja --install-prefix "$prefix"
+  cmake --preset default -G Ninja --install-prefix "$prefix"
 
   # check that no external libs are required
   # ls cmake-build-release/_deps
