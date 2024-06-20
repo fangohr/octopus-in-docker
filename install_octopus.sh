@@ -127,7 +127,7 @@ if [ $build_system == "cmake" ]; then
   echo "Requires: spglib" >> /usr/lib/x86_64-linux-gnu/pkgconfig/spglib_f08.pc
 
   # Remove libxc CMake files because they are not packaged correctly
-  rm -rf /usr/share/cmake/Libxc/
+  # rm -rf /usr/share/cmake/Libxc/
 
   # configure
   cmake --preset default -DOCTOPUS_OpenMP=ON -DOCTOPUS_MPI=ON -DOCTOPUS_ScaLAPACK=ON -G Ninja --install-prefix "$prefix"
