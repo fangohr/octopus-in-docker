@@ -127,13 +127,13 @@ inside a Docker container.
 
 To do this, first clone this repository. Then run::
 
-  docker build -f Dockerfile --build-arg VERSION_OCTOPUS=14.1 -t octimage
+  docker build --build-arg VERSION_OCTOPUS=15.0 -t octimage .
 
-to build Octopus version ``14.1`` in the container and create the Docker image with name ``octimage``.
+to build Octopus version ``15.0`` in the container and create the Docker image with name ``octimage``.
 
 To use the current development version of Octopus (from the `gitlab repository
 <https://gitlab.com/octopus-code/octopus>`__), use ``VERSION_OCTOPUS=develop``
-instead of ``VERSION_OCTOPUS=14.1``. Omitting the ``VERSION_OCTOPUS`` argument
+instead of ``VERSION_OCTOPUS=15.0``. Omitting the ``VERSION_OCTOPUS`` argument
 will by default pick the ``develop`` version.
 
 This will take some time to complete. (On Linux, you may need to prefix all
@@ -179,7 +179,7 @@ Status
 
 Status of building the Docker images:
 
-|stable| Debian Bookworm (12), Latest Octopus release (14.1) using autotools
+|stable| Debian Bookworm (12), Latest Octopus release (15.0) using autotools
 
 |develop| Debian Bookworm (12), Octopus develop branch using autotools
 
