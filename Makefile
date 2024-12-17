@@ -4,7 +4,7 @@
 # EXAMPLE: make develop VERSION_OCTOPUS=custom_branch_on_octopus_repo
 # EXAMPLE: make stable VERSION_OCTOPUS=12.0
 # EXAMPLE: make stable VERSION_OCTOPUS=12.0 BUILD_SYSTEM=cmake
-VERSION_OCTOPUS?=15.0
+VERSION_OCTOPUS?=15.1
 BUILD_SYSTEM?=autotools
 
 stable:
